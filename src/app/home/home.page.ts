@@ -18,9 +18,15 @@ export class HomePage {
   ) {}
 
   ngOnInit() {
-    this.homeNotes = this.noteService.getAllNotes();
-    this.noteCount =  this.noteService.getNoteCount();
-    console.log(this.homeNotes);
+    if (this.noteService.loaded){
+      this.homeNotes = this.noteService.getAllNotes();
+      this.noteCount =  this.noteService.getNoteCount();
+    } else {
+      this.noteService.load().then(() => {
+        this.homeNotes = this.noteService.getAllNotes();
+        this.noteCount =  this.noteService.getNoteCount();
+      });
+    }
   }
 
   addNewPost() {

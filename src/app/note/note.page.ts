@@ -15,6 +15,12 @@ export class NotePage implements OnInit {
   private title: String;
   private copy: String;
   private items = {};
+  private editOptions = {
+    hiddenSave: "hidden",
+    hiddenEdit: "",
+    disabled: "disabled"
+  }
+  private editable = false;
 
   constructor(
     private noteService: NotesService,
@@ -38,5 +44,21 @@ export class NotePage implements OnInit {
     };
     console.log(this.note);
     this.noteService.updateNote(this.note);
+  }
+
+  deleteNote(e){
+    this.noteService.deleteNote(this.noteId);
+  }
+
+  toggleEdit(){
+    if(this.editable = true){
+      this.editOptions.hiddenSave = "",
+      this.editOptions.hiddenEdit = "hidden"
+      this.editOptions.disabled = "false"
+    } else {
+      this.editOptions.hiddenSave = "hidden",
+      this.editOptions.hiddenEdit = ""
+      this.editOptions.disabled = "true"
+    }
   }
 }

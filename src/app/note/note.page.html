@@ -6,9 +6,12 @@
           <ion-back-button defaultHref="/home"></ion-back-button> 
       </ion-buttons>
       <ion-buttons slot="end">
-          <ion-button type="submit" (click)="updateNote()">Save</ion-button>
-          <ion-button>
-              <ion-icon slot="icon-only" name="more"></ion-icon>
+          <ion-button (click)="toggleEdit()">
+              <ion-icon slot="icon-only" name="create" hidden="{{ editOptions.hiddenEdit }}"></ion-icon>
+            </ion-button>
+          <ion-button type="submit" (click)="updateNote()" hidden="{{ editOptions.hiddenSave }}">Save</ion-button>
+          <ion-button (click)="deleteNote()" hidden="{{ editOptions.hiddenSave }}" routerLink="/home">
+              <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
           </ion-button>
       </ion-buttons>
       
@@ -17,11 +20,11 @@
 
   <ion-content class="ion-padding">
     <ion-item>
-      <ion-input id="noteTitle" value="{{ note.title }}" class="titleInput"></ion-input>
+      <ion-input id="noteTitle" value="{{ note.title }}" class="titleInput" disabled="{{ editOptions.disabled }}" required></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-textarea id="noteCopy" value="{{ note.copy }}" rows="30" cols="20"></ion-textarea>
+      <ion-textarea id="noteCopy" value="{{ note.copy }}" rows="30" cols="20" disabled="{{ editOptions.disabled }}" required></ion-textarea>
     </ion-item>
 
     <div class="date">
