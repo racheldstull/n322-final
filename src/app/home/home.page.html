@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      NotesApp
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="funnel"></ion-icon>
+      </ion-button>
+      <ion-button>
+          <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)=addNewPost() routerLink="/note/{{ noteCount }}" routerDirection="forward">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-card routerLink="/note/{{ note.id }}" routerDirection="forward" *ngFor="let note of homeNotes">
+    <ion-card-header>
+      <ion-card-title>
+        {{ note.title }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        {{ note.copy }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
