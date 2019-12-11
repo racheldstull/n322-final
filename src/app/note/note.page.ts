@@ -1,6 +1,6 @@
 import { NotesService } from './../services/notes.service';
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router'; 
 
 @Component({
@@ -25,7 +25,8 @@ export class NotePage implements OnInit {
   constructor(
     private noteService: NotesService,
     private alertCtrl: AlertController,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -46,8 +47,25 @@ export class NotePage implements OnInit {
     this.noteService.updateNote(this.note);
   }
 
-  deleteNote(e){
-    this.noteService.deleteNote(this.noteId);
+  deleteNote(){
+    this.alertCtrl.create({
+      header: 'Delete',
+      message: 'Are you sure you want to delete this note?',
+      buttons: [ 
+        { 
+          text: 'Cancel' 
+        }, 
+        { 
+          text: 'Delete', 
+          handler: () => { 
+            this.noteService.deleteNote(this.noteId);
+            this.navCtrl.navigateRoot('/home');
+          } 
+        } 
+      ] 
+    }).then(prompt => { 
+      prompt.present(); 
+    }); 
   }
 
   toggleEdit(){
